@@ -34,7 +34,6 @@ import com.example.android.guesstheword.databinding.GameFragmentBinding
 class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
-
     private lateinit var binding: GameFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +61,10 @@ class GameFragment : Fragment() {
             viewModel.onSkip()
             updateScoreText()
             updateWordText()
-
         }
+        updateScoreText()
+        updateWordText()
+
         return binding.root
 
     }

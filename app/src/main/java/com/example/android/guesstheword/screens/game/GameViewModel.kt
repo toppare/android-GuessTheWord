@@ -17,7 +17,6 @@ class GameViewModel : ViewModel() {
         Log.i("GameViewModel", "GameViewModel created")
         resetList()
         nextWord()
-
     }
 
     override fun onCleared() {
