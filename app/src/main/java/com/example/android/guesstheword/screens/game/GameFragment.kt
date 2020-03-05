@@ -21,6 +21,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -48,6 +49,7 @@ class GameFragment : Fragment() {
                 false
         )
 
+
         // Get the viewmodel
         Log.i("GameFragment", "Called ViewModelProviders")
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
@@ -62,11 +64,15 @@ class GameFragment : Fragment() {
 
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->  binding.scoreText.text = newScore.toString()})
         viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->  binding.wordText.text = newWord})
+        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer { hasFinished ->
+            if (hasFinished) {
+                gameFinished()
+                viewModel.onGameFinishComplete()
+            }
+        })
 
         return binding.root
-
     }
-
 
     /**
      * Called when the game is finished
@@ -75,6 +81,7 @@ class GameFragment : Fragment() {
         val currentScore = viewModel.score.value ?: 0
         val action = GameFragmentDirections.actionGameToScore(currentScore)
         findNavController(this).navigate(action)
-    }
+        Toast.makeText(this.activity,"game is finished",Toast.LENGTH_SHORT).show()
 
+    }
 }
