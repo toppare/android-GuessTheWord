@@ -77,5 +77,4 @@ class GameFragment : Fragment() {
         findNavController(this).navigate(action)
     }
 
-
 }
